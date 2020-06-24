@@ -4,7 +4,7 @@
 " Version: 0.1
 " =======================
 
-if exist('g:loaded_indispendable') || &compatible
+if exists('g:loaded_indispendable') || &compatible
     finish
 else
     let g:loaded_indispendable = 'yes'
