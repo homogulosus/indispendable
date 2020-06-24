@@ -2,7 +2,7 @@
 
 ## Basically a copy of the lord tpope's vim-sensible
 
-     * [vim-sensible][1]
+* [vim-sensible][1]
 
 A copy that suits me and I use to learn the honorific art of plug making.
 Tailored for [nvim][2]
