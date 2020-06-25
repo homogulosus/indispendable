@@ -186,19 +186,10 @@ endfunction
 
 " Terminal more appealing
 if has('nvim')
-  au TermOpen * setlocal nonumber norelativenumber
-    augroup terminal_settings
-      autocmd!
-        " autocmd BufWinEnter,WinEnter term://* startinsert | resize 10
+    au TermOpen * setlocal nonumber norelativenumber
+    " wind resizing
+    augroup myterm | au!
         au TermOpen * if &buftype ==# 'terminal' | resize 10 | startinsert | endif
-        autocmd BufLeave term://* stopinsert
-
-        " Ignore various filetypes as those will close terminal automatically
-        " Ignore fzf, ranger, coc
-        autocmd TermClose term://*
-              \ if (expand('<afile>') !~ "fzf") && (expand('<afile>') !~ "ranger") && (expand('<afile>') !~ "coc") |
-              \   call nvim_input('<CR>')  |
-              \ endif
     augroup end
 endif
 nmap <leader>T :sp +terminal<CR>
