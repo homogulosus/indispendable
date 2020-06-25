@@ -189,7 +189,8 @@ if has('nvim')
     au TermOpen * setlocal nonumber norelativenumber
     " wind resizing
     augroup myterm | au!
-        au TermOpen * if &buftype ==# 'terminal' | resize 10 | :startinsert | endif
+        au TermOpen * if &buftype ==# 'terminal' | resize 10 | startinsert | endif
+        au BufLeave * if &buftyoe ==# 'terminal' | stopinsert
     augroup end
 endif
 nmap <leader>T :sp +terminal<CR>
