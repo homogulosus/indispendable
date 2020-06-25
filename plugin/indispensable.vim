@@ -190,6 +190,11 @@ if has('nvim')
     " wind resizing
     augroup myterm | au!
         au TermOpen * if &buftype ==# 'terminal' | resize 10 | startinsert | endif
+        au BufLeave * if &buftype ==# 'terminal' | stopinsert | endif
+        autocmd TermClose term://*
+          \ if (expand('<afile>') !~ "fzf") && (expand('<afile>') !~ "ranger") && (expand('<afile>') !~ "coc") |
+          \   call nvim_input('<CR>')  |
+          \ endif
     augroup end
 endif
 nmap <leader>T :sp +terminal<CR>
