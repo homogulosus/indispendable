@@ -190,7 +190,7 @@ if has('nvim')
     " wind resizing
     augroup myterm | au!
         au TermOpen * if &buftype ==# 'terminal' | resize 10 | startinsert | endif
-        au BufLeave * if &buftyoe ==# 'terminal' | stopinsert
+        autocmd BufLeave term://* stopinsert
     augroup end
 endif
 nmap <leader>T :sp +terminal<CR>
