@@ -175,7 +175,7 @@ autocmd! ColorScheme * call TrailingSpaceHighlights()
 augroup WindowManagement
     autocmd!
     autocmd WinEnter * call Handle_Win_Enter()
-augroup END
+augroup end
 
 " Change highlight group of preview window when open
 function! Handle_Win_Enter()
@@ -190,7 +190,7 @@ if has('nvim')
     " wind resizing
     augroup myterm | au!
         au TermOpen * if &buftype ==# 'terminal' | resize 10 | startinsert | endif
-        autocmd BufLeave term://* stopinsert
+        au BufLeave * if &buftype ==# 'terminal' | stopinsert | endif
     augroup end
 endif
 nmap <leader>T :sp +terminal<CR>
@@ -223,7 +223,7 @@ function! Redir(cmd, rng, start, end)
 	else
 		redir => output
 		execute a:cmd
-		redir END
+		redir end
 		let output = split(output, "\n")
 	endif
 	vnew
