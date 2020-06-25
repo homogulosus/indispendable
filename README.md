@@ -7,6 +7,17 @@
 A copy that suits me and I use to learn the honorific art of plug making.
 Tailored for [nvim][2]
 
+## Features
+
+    - Terminal behaves more like Vim's terminal
+        - nonumber
+        - startinsert
+        - quit on exit
+        - etc
+    - Redir. Redirects command output to a new buffer.
+        - Vim commands
+        - shell commands (!)
+
 ### Credits and License
 
 Copyright 2020 homogulosus
