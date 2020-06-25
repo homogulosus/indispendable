@@ -44,8 +44,10 @@ set incsearch
 set laststatus=2
 set ruler
 set wildmenu
-set winbl=10 "Set floating window slightly transparent"
 
+if !&winbl
+  set winbl=10 "Set floating window slightly transparent"
+endif
 if !&scrolloff
   set scrolloff=2
 endif
@@ -183,13 +185,14 @@ function! Handle_Win_Enter()
 endfunction
 
 " Terminal more appealing
-au TermOpen * setlocal nonumber norelativenumber
-nmap <leader>T :sp +te<CR>
-" wind resizing
-augroup myterm | au!
-    au TermOpen * if &buftype ==# 'terminal' | resize 10 | :startinsert | endif
-augroup end
-
+if has('nvim')
+    au TermOpen * setlocal nonumber norelativenumber
+    " wind resizing
+    augroup myterm | au!
+        au TermOpen * if &buftype ==# 'terminal' | resize 10 | :startinsert | endif
+    augroup end
+endif
+nmap <leader>T :sp +terminal<CR>
 " Open in VScode
 command! Code exe "silent !code '" . getcwd() . "' --goto '" . expand("%") . ":" . line(".") . ":" . col(".") . "'" | redraw!
 
@@ -198,6 +201,7 @@ command! DiffOrig vert new | set buftype=nofile | read ++edit # | 0d_
         \ | diffthis | wincmd p | diffthis
 
 " ====== REDIR ======= "
+" TODO Make this a plugin by itself
 function! Redir(cmd, rng, start, end)
 	for win in range(1, winnr('$'))
 		if getwinvar(win, 'scratch')
