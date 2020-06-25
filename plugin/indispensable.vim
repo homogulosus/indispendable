@@ -188,9 +188,9 @@ endfunction
 if has('nvim')
     au TermOpen * setlocal nonumber norelativenumber
     " wind resizing
-    augroup myterm | au!
+    augroup term_settings | au!
         au TermOpen * if &buftype ==# 'terminal' | resize 10 | startinsert | endif
-        au BufLeave * if &buftype ==# 'terminal' | stopinsert | endif
+        au BufLeave term://* stopinsert
         autocmd TermClose term://*
           \ if (expand('<afile>') !~ "fzf") && (expand('<afile>') !~ "ranger") && (expand('<afile>') !~ "coc") |
           \   call nvim_input('<CR>')  |
