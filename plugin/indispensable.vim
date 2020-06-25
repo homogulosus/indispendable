@@ -1,7 +1,7 @@
 " =======================
 " indispensable.vim
 " Maintainer: homogulosus
-" Version: 0.1
+" Version: 0.2
 " =======================
 
 if exists('g:loaded_indispensable') || &compatible
@@ -191,6 +191,7 @@ if has('nvim')
     augroup term_settings | au!
         au TermOpen * if &buftype ==# 'terminal' | resize 10 | startinsert | endif
         au BufLeave term://* stopinsert
+        " Ignore various fyletypes as those will close terminal automatically
         autocmd TermClose term://*
           \ if (expand('<afile>') !~ "fzf") && (expand('<afile>') !~ "ranger") && (expand('<afile>') !~ "coc") |
           \   call nvim_input('<CR>')  |
