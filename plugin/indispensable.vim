@@ -183,19 +183,6 @@ endif
 
 " Terminal more appealing
 if has('nvim')
-<<<<<<< HEAD
-    au TermOpen * setlocal nonumber norelativenumber
-    " wind resizing
-    augroup term_settings | au!
-        au TermOpen * if &buftype ==# 'terminal' | resize 10 | startinsert | endif
-        au BufLeave term://* stopinsert
-        " Ignore various fyletypes as those will close terminal automatically
-        autocmd TermClose term://*
-          \ if (expand('<afile>') !~ "fzf") && (expand('<afile>') !~ "ranger") && (expand('<afile>') !~ "coc") |
-          \   call nvim_input('<CR>')  |
-          \ endif
-    augroup end
-=======
   au TermOpen * setlocal nonumber norelativenumber
   " wind resizing
   augroup term_settings | au!
@@ -206,7 +193,6 @@ if has('nvim')
       \   call nvim_input('<CR>')  |
       \ endif
   augroup end
->>>>>>> develop
 endif
 
 " map T to open a terminal window on the botton of the screen since we have splitbelow on
@@ -255,18 +241,3 @@ endfunction
 command! -nargs=1 -complete=command -bar -range Redir silent call Redir(<q-args>, <range>, <line1>, <line2>)
 
 " vim:set ft=vim et sw=2:
-
-" +++ GRAVEYARD ++++
-"
-" set autoindent "defaults
-" set backspace=indent,eol,start "defaults
-" set complete-=i "defaults
-" set smarttab "defaults
-" set incsearch "defaults
-" set laststatus=2 "defaults
-" set ruler "defaults
-" set wildmenu "defaults
-" set encoding=utf-8 "defaults
-" set sessionoptions-=options "defaults
-" set autoread "defaults
-" set backupdir=~/.local/share/nvim/backup "defaults
