@@ -1,7 +1,7 @@
 " =======================
 " indispensable.vim
 " Maintainer: homogulosus
-" Version: 0.1
+" Version: 0.3
 " =======================
 
 if exists('g:loaded_indispensable') || &compatible
@@ -10,19 +10,18 @@ else
     let g:loaded_indispensable = 'yes'
 endif
 
-if has('autocmd')
-    filetype plugin indent on
-endif
-if has('syntax') && !exists('g:syntax_on')
-    syntax enable
+" nvim has both options enebled by default
+if !has('nvim')
+  if has('autocmd')
+      filetype plugin indent on
+  endif
+  if has('syntax') && !exists('g:syntax_on')
+      syntax enable
+  endif
 endif
 
 filetype plugin on
 
-set autoindent
-set backspace=indent,eol,start
-set complete-=i
-set smarttab
 set number
 set relativenumber
 set hidden
@@ -33,17 +32,13 @@ set splitbelow
 set noshowmode
 set fillchars+=vert:.
 
+set formatoptions+=j " Delete comment character when joining commented lines
 set nrformats-=octal
 
 if !has('nvim') && $ttimeoutlen == -100
     set ttimeout
     set ttimeoutlen=100
 endif
-
-set incsearch
-set laststatus=2
-set ruler
-set wildmenu
 
 if !&winbl
   set winbl=10 "Set floating window slightly transparent"
@@ -56,32 +51,23 @@ if !&sidescrolloff
 endif
 set display+=lastline
 
-set encoding=utf-8
-
 if &listchars ==# 'eol:$'
   set listchars=tab:>\ ,trail:-,extends:>,precedes:<,nbsp:+
 endif
-
-set formatoptions+=j " Delete comment character when joining commented lines
 
 if has('path_extra')
   setglobal tags-=./tags tags-=./tags; tags^=./tags;
 endif
 
-set shell=/usr/bin/env\ zsh
-
-set autoread
-
 if &history < 1000
     set history=1000
 endif
 if &tabpagemax < 50
-    set tabpagemax=50
+    set tabpagemax=50 "nvim defaults
 endif
 if !empty(&viminfo)
     set viminfo^=!
 endif
-set sessionoptions-=options
 set viewoptions-=options
 
 if &updatetime > 100
@@ -112,14 +98,13 @@ if has('persistent_undo')
     set undoreload=10000
 endif
 
-set backupdir=~/.local/share/nvim/backup " Don't put backups in current dir
 set nobackup
 set swapfile
 set nowritebackup
 
 set expandtab
 set tabstop=4
-set softtabstop=4
+set softtabstop=2
 set shiftwidth=4
 set shiftround
 set spellsuggest=7
@@ -138,6 +123,9 @@ set foldlevel=99
 set cmdheight=2
 
 set keywordprg=:Man " Open man pages in vim
+
+" TODO recognize user env, act accordingly
+set shell=/usr/bin/env\ zsh
 
 " Always show the signcolumn, otherwise it would shift the text each time
 " diagnostics appear/become resolved.
@@ -197,9 +185,13 @@ if has('nvim')
           \ endif
     augroup end
 endif
+
+" map T to open a terminal window on the botton of the screen since we
+" have splitbelow on
 nmap <leader>T :sp +terminal<CR>
 
 " Open in VScode
+" TODO make sure VScode exist
 command! Code exe "silent !code '" . getcwd() . "' --goto '" . expand("%") . ":" . line(".") . ":" . col(".") . "'" | redraw!
 
 " Diff Original File
@@ -240,3 +232,18 @@ endfunction
 command! -nargs=1 -complete=command -bar -range Redir silent call Redir(<q-args>, <range>, <line1>, <line2>)
 
 " vim:set ft=vim et sw=2:
+
+" +++ GRAVEYARD ++++
+"
+" set autoindent "defaults
+" set backspace=indent,eol,start "defaults
+" set complete-=i "defaults
+" set smarttab "defaults
+" set incsearch "defaults
+" set laststatus=2 "defaults
+" set ruler "defaults
+" set wildmenu "defaults
+" set encoding=utf-8 "defaults
+" set sessionoptions-=options "defaults
+" set autoread "defaults
+" set backupdir=~/.local/share/nvim/backup "defaults
