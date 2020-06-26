@@ -46,7 +46,7 @@ if !has('nvim') && $ttimeoutlen == -100
   set ttimeoutlen=100
 endif
 
-if !&winbl
+if &winbl
   set winbl=10 "Set floating window slightly transparent"
 endif
 if !&scrolloff
@@ -202,6 +202,7 @@ nmap <leader>T :sp +terminal<CR>
 if executable('code')
   command! Code exe "silent !code '" . getcwd() . "' --goto '" . expand("%") . ":" . line(".") . ":" . col(".") . "'" | redraw!
 endif
+
 " Diff Original File
 command! DiffOrig vert new | set buftype=nofile | read ++edit # | 0d_
         \ | diffthis | wincmd p | diffthis
