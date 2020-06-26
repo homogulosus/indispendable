@@ -46,7 +46,7 @@ if !has('nvim') && $ttimeoutlen == -100
   set ttimeoutlen=100
 endif
 
-if &winbl
+if has('winblend')
   set winbl=10 "Set floating window slightly transparent"
 endif
 if !&scrolloff
