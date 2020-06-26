@@ -106,7 +106,6 @@ if has('persistent_undo')
 endif
 
 set nobackup
-set swapfile
 set nowritebackup
 
 set expandtab
@@ -256,3 +255,4 @@ command! -nargs=1 -complete=command -bar -range Redir silent call Redir(<q-args>
 " set sessionoptions-=options "defaults
 " set autoread "defaults
 " set backupdir=~/.local/share/nvim/backup "defaults
+" set swapfile " defaults
