@@ -12,8 +12,8 @@ Tailored for [nvim][2]
 * Terminal behaves more like Vim's terminal
   * nonumber
   * startinsert
-  * quit on exit
-  * etc
+  * quit on exit (no ore 0 process)
+  * Mapped to `<leader>T`
 
 * Redir. Redirects command output to a new buffer.
   * Vim commands
