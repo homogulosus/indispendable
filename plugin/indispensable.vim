@@ -124,9 +124,6 @@ set cmdheight=2
 
 set keywordprg=:Man " Open man pages in vim
 
-" TODO recognize user env, act accordingly
-set shell=/usr/bin/env\ zsh
-
 " Always show the signcolumn, otherwise it would shift the text each time
 " diagnostics appear/become resolved.
 if has("patch-8.1.1564")
