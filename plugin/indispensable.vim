@@ -176,7 +176,7 @@ autocmd! ColorScheme * call TrailingSpaceHighlights()
 augroup WindowManagement
   autocmd!
   autocmd WinEnter * call Handle_Win_Enter()
-augroup end
+augroup END
 
 " Change highlight group of preview window when open
 function! Handle_Win_Enter()
@@ -201,7 +201,7 @@ if has('nvim')
       \ if (expand('<afile>') !~ "fzf") && (expand('<afile>') !~ "ranger") && (expand('<afile>') !~ "coc") |
       \   call nvim_input('<CR>')  |
       \ endif
-  augroup end
+  augroup END
 endif
 
 " map T to open a terminal window on the botton of the screen since we have splitbelow on
@@ -238,7 +238,7 @@ function! Redir(cmd, rng, start, end)
     else
 	  redir => output
 	  execute a:cmd
-	  redir end
+	  redir END
 	  let output = split(output, "\n")
   endif
   vnew
