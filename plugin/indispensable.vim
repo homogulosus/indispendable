@@ -86,6 +86,16 @@ if !has('nvim')
   set t_Co=16
   endif
 endif
+
+" CursorLineNr more visible
+if !has('nvim')
+  set cursorline
+  set cursorlineopt=number
+endif
+
+highlight LineNR cterm=none ctermfg=Yellow ctermbg=none
+highlight CursorLineNR cterm=bold ctermfg=Black ctermbg=none
+
 " Load matchit.vim, but only if the user hasn't installed a newer version.
 if !exists('g:loaded_matchit') && findfile('plugin/matchit.vim', &rtp) ==# ''
   runtime! macros/matchit.vim
