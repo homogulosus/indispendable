@@ -118,15 +118,15 @@ endif
 set nobackup
 set nowritebackup
 
-set expandtab
-set tabstop=4
-set softtabstop=2
-set shiftwidth=4
-set shiftround
+" set expandtab
+" set tabstop=4
+" set softtabstop=2
+" set shiftwidth=4
+" set shiftround
 set spellsuggest=7
-set linebreak
+" set linebreak
 set shortmess=atI
-set tw=80
+" set tw=79
 
 set ignorecase
 set smartcase
