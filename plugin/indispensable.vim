@@ -128,7 +128,6 @@ set spellsuggest=7
 set shortmess=atI
 " set tw=79
 
-set ignorecase
 set smartcase
 autocmd BufRead,BufNewFile *.md setlocal spell " Enable spellcheck for markdown files
 
