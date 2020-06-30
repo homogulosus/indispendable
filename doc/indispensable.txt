@@ -1,4 +1,4 @@
-*indispensable.txt* My Preferred Settings.
+*indispensable.txt*             My Preferred Settings.
 
 Author: homogulosus
 License: buhahahha
