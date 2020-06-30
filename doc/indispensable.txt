@@ -1,0 +1,25 @@
+*indispensable.txt* My Preferred Settings.
+
+Author: homogulosus
+License: buhahahha
+
+This plugins tries to be compatible with Vim and neovim
+neovim is preferred
+
+INTRODUCTION                             *indispensable*
+
+TODO
+
+COMMANDS                        *indispensable-commands*
+
+There are not many commands at the moment
+
+:Redir {args}           Redirects command line output to
+                        a vertical split new buffer.
+
+:Code                   Opens current buffer in a VSCode
+                        window if VSCode exists.
+
+TODO
+
+vim:tw=78:et:ft=help:norl:
