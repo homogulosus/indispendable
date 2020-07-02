@@ -36,7 +36,6 @@ set mouse=a
 set termguicolors
 set splitbelow
 set noshowmode
-set fillchars+=vert:.
 
 set formatoptions+=j " Delete comment character when joining commented lines
 set nrformats-=octal
@@ -118,15 +117,8 @@ endif
 set nobackup
 set nowritebackup
 
-" set expandtab
-" set tabstop=4
-" set softtabstop=2
-" set shiftwidth=4
-" set shiftround
 set spellsuggest=7
-" set linebreak
 set shortmess=atI
-" set tw=79
 
 set smartcase
 autocmd BufRead,BufNewFile *.md setlocal spell " Enable spellcheck for markdown files
@@ -180,7 +172,7 @@ augroup WindowManagement
 augroup END
 
 " Change highlight group of preview window when open
-function! Handle_Win_Enter()
+function! Handle_Win_Enter() abort
   if &previewwindow
     setlocal winhighlight=Normal:MarkdownError
   endif
@@ -219,7 +211,7 @@ command! DiffOrig vert new | set buftype=nofile | read ++edit # | 0d_
 
 " ====== REDIR ======= "
 " TODO Make this a plugin by itself
-function! Redir(cmd, rng, start, end)
+function! Redir(cmd, rng, start, end) abort
   for win in range(1, winnr('$'))
     if getwinvar(win, 'scratch')
 	  execute win . 'windo close'
@@ -250,20 +242,4 @@ endfunction
 
 command! -nargs=1 -complete=command -bar -range Redir silent call Redir(<q-args>, <range>, <line1>, <line2>)
 
-" vim:set ft=vim et sw=2:
-
-" +++ GRAVEYARD ++++
-"
-" set autoindent "defaults
-" set backspace=indent,eol,start "defaults
-" set complete-=i "defaults
-" set smarttab "defaults
-" set incsearch "defaults
-" set laststatus=2 "defaults
-" set ruler "defaults
-" set wildmenu "defaults
-" set encoding=utf-8 "defaults
-" set sessionoptions-=options "defaults
-" set autoread "defaults
-" set backupdir=~/.local/share/nvim/backup "defaults
-" set swapfile " defaults
+" vim: set ts=8 sts=4 sw=4 noexpandtab ff=unix fdm=syntax :
