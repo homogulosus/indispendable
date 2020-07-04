@@ -12,7 +12,7 @@ endif
 
 " Make sure we are using an updated version of Vim
 if v:version < 800
-  echo "Upgrade your Vim! Plugin not loaded!"
+  echo "Upgrade your Vim! Indispensable.plugin not loaded!"
   finish
 endif
 
@@ -94,11 +94,6 @@ endif
 
 highlight LineNR cterm=none ctermfg=Yellow ctermbg=none
 highlight CursorLineNR cterm=bold ctermfg=Black ctermbg=none
-
-" Load matchit.vim, but only if the user hasn't installed a newer version.
-if !exists('g:loaded_matchit') && findfile('plugin/matchit.vim', &rtp) ==# ''
-  runtime! macros/matchit.vim
-endif
 
 if empty(mapcheck('<C-U>', 'i'))
   inoremap <C-U> <C-G>u<C-U>
