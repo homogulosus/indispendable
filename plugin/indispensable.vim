@@ -138,7 +138,7 @@ if !has('nvim')
 endif
 
 " Delete trailing white space on save, useful for some filetypes ;)
-fun! CleanExtraSpaces()
+function! CleanExtraSpaces() abort
   let save_cursor = getpos(".")
   let old_query = getreg('/')
   silent! %s/\s\+$//e
