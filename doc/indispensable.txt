@@ -14,9 +14,6 @@ COMMANDS                        *indispensable-commands*
 
 There are not many commands at the moment
 
-:Redir {args}           Redirects command line output to
-                        a vertical split new buffer.
-
 :Code                   Opens current buffer in a VSCode
                         window if VSCode exists.
 
