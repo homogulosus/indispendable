@@ -143,7 +143,7 @@ endfunction
 autocmd indispensable ColorScheme * call TrailingSpaceHighlights()
 
 " Call method on window enter
-  autocmd indispensable	WinEnter * call Handle_Win_Enter()
+autocmd indispensable WinEnter * call Handle_Win_Enter()
 
 " Change highlight group of preview window when open
 function! Handle_Win_Enter() abort
@@ -152,7 +152,7 @@ function! Handle_Win_Enter() abort
   endif
 endfunction
 
-" add zsh to runtimepath if present
+" Add zsh to runtimepath if present
 if executable('zsh')
   set shell=/usr/bin/env\ zsh
 endif
