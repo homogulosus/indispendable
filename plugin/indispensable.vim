@@ -27,22 +27,11 @@ if !has('nvim')
 endif
 
 filetype plugin on
-
-set number
-set relativenumber
-set hidden
-set nocursorline
-set mouse=a
-set termguicolors
-set splitbelow
-set noshowmode
-
-set formatoptions+=j " Delete comment character when joining commented lines
-set nrformats-=octal
+silent! set number relativenumber hidden nocursorline termguicolors splitbelow noshowmode smartcase
+silent! set mouse=a formatoptions+=j nrformats-=octal display+=lastline viewoptions-=options
 
 if !has('nvim') && $ttimeoutlen == -100
-  set ttimeout
-  set ttimeoutlen=100
+  set ttimeout ttimeoutlen=100
 endif
 
 if has('winblend')
@@ -54,7 +43,6 @@ endif
 if !&sidescrolloff
   set sidescrolloff=5
 endif
-set display+=lastline
 
 if &listchars ==# 'eol:$'
   set listchars=tab:>\ ,trail:-,extends:>,precedes:<,nbsp:+
@@ -70,10 +58,10 @@ endif
 if &tabpagemax < 50
   set tabpagemax=50 "nvim defaults
 endif
-if !empty(&viminfo)
+
+if !has('nvim') && !empty(&viminfo)
   set viminfo^=!
 endif
-set viewoptions-=options
 
 if &updatetime > 100
   set updatetime=100
@@ -104,27 +92,15 @@ endif
 
 " Set backups
 if has('persistent_undo')
-  set undofile
-  set undolevels=3000
-  set undoreload=10000
+  set undofile undolevels=3000 undoreload=10000
 endif
 
-set nobackup
-set nowritebackup
-
-set spellsuggest=7
-set shortmess=atI
-
-set smartcase
-autocmd BufRead,BufNewFile *.md setlocal spell " Enable spellcheck for markdown files
+silent! set nobackup nowritebackup
+silent! set spellsuggest=7 shortmess=atI
 
 " Folding
-set foldmethod=syntax
-set foldcolumn=1
-set foldlevel=99
-set cmdheight=2
-
-set keywordprg=:Man " Open man pages in vim
+silent! set foldmethod=syntax foldcolumn=1 foldlevel=99 cmdheight=2
+silent! set keywordprg=:Man " Open man pages in vim
 
 " Always show the signcolumn, otherwise it would shift the text each time
 " diagnostics appear/become resolved.
@@ -146,9 +122,15 @@ function! CleanExtraSpaces() abort
   call setreg('/', old_query)
 endfun
 
+augroup indispensable
+	autocmd!
+augroup END
+
 if has("autocmd")
-    autocmd BufWritePre *.txt,*.md,*.html,*.css,*.scss,*.js,*.py,*.wiki,*.sh,*.zsh :call CleanExtraSpaces()
+    autocmd indispensable BufWritePre *.txt,*.md,*.html,*.css,*.scss,*.js,*.py,*.wiki,*.sh,*.zsh :call CleanExtraSpaces()
 endif
+
+autocmd indispensable BufRead,BufNewFile *.md setlocal spell " Enable spellcheck for markdown files
 
 " Add custom highlights in method that is executed every time a colorscheme is sourced
 " See https://gist.github.com/romainl/379904f91fa40533175dfaec4c833f2f for details
@@ -158,13 +140,10 @@ function! TrailingSpaceHighlights() abort
   call matchadd('Trail', '\s\+$', 100)
 endfunction
 
-autocmd! ColorScheme * call TrailingSpaceHighlights()
+autocmd indispensable ColorScheme * call TrailingSpaceHighlights()
 
 " Call method on window enter
-augroup WindowManagement
-  autocmd!
-  autocmd WinEnter * call Handle_Win_Enter()
-augroup END
+  autocmd indispensable	WinEnter * call Handle_Win_Enter()
 
 " Change highlight group of preview window when open
 function! Handle_Win_Enter() abort
@@ -180,11 +159,11 @@ endif
 
 " Terminal more appealing
 if has('nvim')
-  au TermOpen * setlocal nonumber norelativenumber
+  autocmd indispensable TermOpen * setlocal nonumber norelativenumber
   " wind resizing
-  augroup term_settings | au!
-    au TermOpen * if &buftype ==# 'terminal' | resize 10 | startinsert | endif
-    au BufLeave term://* stopinsert
+  augroup term_settings | autocmd!
+    autocmd TermOpen * if &buftype ==# 'terminal' | resize 10 | startinsert | endif
+    autocmd BufLeave term://* stopinsert
     autocmd TermClose term://*
       \ if (expand('<afile>') !~ "fzf") && (expand('<afile>') !~ "ranger") && (expand('<afile>') !~ "coc") |
       \   call nvim_input('<CR>')  |
