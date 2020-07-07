@@ -1,8 +1,9 @@
-" =======================
-" indispensable.vim
+" ===================================
+" Name: indispensable.vim
 " Maintainer: homogulosus
-" Version: 0.3
-" =======================
+" Version: 0.4
+" Date: Tue Jul  7 15:30:00 EDT 2020
+" ===================================
 
 if exists('g:loaded_indispensable') || &compatible
   finish
@@ -172,7 +173,7 @@ if has('nvim')
 endif
 
 " map T to open a terminal window on the botton of the screen since we have splitbelow on
-nmap <leader>T :sp +terminal<CR>
+nmap <silent><leader>T :sp +terminal<CR>
 
 " Open in VScode
 if executable('code')
