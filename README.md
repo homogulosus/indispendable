@@ -15,7 +15,7 @@ Tailored for [nvim][2]
   * quit on exit (no ore 0 process)
   * Mapped to `<leader>T`
 
-* Redir. Redirects command output to a new buffer.
+* Redir. Redirects command output to a new buffer. (update: this is now a plugin)
   * Vim commands
   * shell commands (!)
 
