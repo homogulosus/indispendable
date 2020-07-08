@@ -13,7 +13,7 @@ endif
 
 " Make sure we are using an updated version of Vim
 if v:version < 800
-  echo "Upgrade your Vim! Indispensable.plugin not loaded!"
+  echo "Upgrade your Vim! Indispensable.vim not loaded!"
   finish
 endif
 

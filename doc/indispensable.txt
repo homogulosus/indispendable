@@ -1,22 +1,45 @@
-*indispensable.txt*             My Preferred Settings.
+*indispensable.txt*                                    My Preferred Settings.
 
 Author: homogulosus
-License: buhahahha
+License: same as neovim
 
-This plugins tries to be compatible with Vim and neovim
-neovim is preferred
+This plugins tries to be compatible with Vim and neovim. Neovim is preferred
 
-INTRODUCTION                             *indispensable*
+INTRODUCTION                                               *indispensable*
 
-TODO
+Based on vim-sensible. This simple plugin is the result of cleaning up my
+init.vim
 
-COMMANDS                        *indispensable-commands*
+There is functionality like delete trailing spaces. Show trailing spaces in red
+but for this later functionality vim-better-whitespace is required.
+
+Fixes issues when using Vim in terminal to load all the colors possible.
+
+Opens man pages in your favourite editor, I am talking about Vim/neovim.
+
+Changes the highlights when a preview window is open.
+
+If you use zsh (if you don't maybe you should give it a try) it will add it to
+your runtimepath.
+
+Makes neovim terminal behave more like vim's terminal. nonumber, start in
+insert mode, closes on exiting terminal. fzf, ranger and coc are taking into
+account.
+
+DiffOrig command is also present.
+
+
+
+COMMANDS                                            *indispensable-commands*
 
 There are not many commands at the moment
 
 :Code                   Opens current buffer in a VSCode
                         window if VSCode exists.
 
-TODO
+:DiffOrig               Use ":DiffOrig" to see the differences
+                        between the current buffer and the file
+                        it was loaded from. (see :help DiffOrig)
+
 
 vim:tw=78:et:ft=help:norl:
