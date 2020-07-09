@@ -158,23 +158,6 @@ if executable('zsh')
   set shell=/usr/bin/env\ zsh
 endif
 
-" Terminal more appealing
-if has('nvim')
-  autocmd indispensable TermOpen * setlocal nonumber norelativenumber
-  " wind resizing
-  augroup term_settings | autocmd!
-    autocmd TermOpen * if &buftype ==# 'terminal' | resize 10 | startinsert | endif
-    autocmd BufLeave term://* stopinsert
-    autocmd TermClose term://*
-      \ if (expand('<afile>') !~ "fzf") && (expand('<afile>') !~ "ranger") && (expand('<afile>') !~ "coc") |
-      \   call nvim_input('<CR>')  |
-      \ endif
-  augroup END
-endif
-
-" map T to open a terminal window on the botton of the screen since we have splitbelow on
-nmap <silent><leader>T :sp +terminal<CR>
-
 " Open in VScode
 if executable('code')
   command! Code exe "silent !code '" . getcwd() . "' --goto '" . expand("%") . ":" . line(".") . ":" . col(".") . "'" | redraw!
