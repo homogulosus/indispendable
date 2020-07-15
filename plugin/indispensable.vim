@@ -1,10 +1,11 @@
-" =======================
-" indispensable.vim
+" ===================================
+" Name: indispensable.vim
 " Maintainer: homogulosus
-" Version: 0.3
-" =======================
+" Version: 0.4
+" Date: Tue Jul  7 15:30:00 EDT 2020
+" ===================================
 
-if exists('g:loaded_indispensable') || &compatible
+if &compatible || exists('g:loaded_indispensable')
   finish
 else
   let g:loaded_indispensable = 'yes'
@@ -12,7 +13,7 @@ endif
 
 " Make sure we are using an updated version of Vim
 if v:version < 800
-  echo "Upgrade your Vim! Plugin not loaded!"
+  echo "Upgrade your Vim! Indispensable.vim not loaded!"
   finish
 endif
 
@@ -27,23 +28,11 @@ if !has('nvim')
 endif
 
 filetype plugin on
-
-set number
-set relativenumber
-set hidden
-set nocursorline
-set mouse=a
-set termguicolors
-set splitbelow
-set noshowmode
-set fillchars+=vert:.
-
-set formatoptions+=j " Delete comment character when joining commented lines
-set nrformats-=octal
+silent! set number relativenumber hidden nocursorline termguicolors splitbelow noshowmode smartcase
+silent! set mouse=a formatoptions+=j nrformats-=octal display+=lastline viewoptions-=options
 
 if !has('nvim') && $ttimeoutlen == -100
-  set ttimeout
-  set ttimeoutlen=100
+  set ttimeout ttimeoutlen=100
 endif
 
 if has('winblend')
@@ -55,7 +44,6 @@ endif
 if !&sidescrolloff
   set sidescrolloff=5
 endif
-set display+=lastline
 
 if &listchars ==# 'eol:$'
   set listchars=tab:>\ ,trail:-,extends:>,precedes:<,nbsp:+
@@ -71,10 +59,10 @@ endif
 if &tabpagemax < 50
   set tabpagemax=50 "nvim defaults
 endif
-if !empty(&viminfo)
+
+if !has('nvim') && !empty(&viminfo)
   set viminfo^=!
 endif
-set viewoptions-=options
 
 if &updatetime > 100
   set updatetime=100
@@ -86,10 +74,15 @@ if !has('nvim')
   set t_Co=16
   endif
 endif
-" Load matchit.vim, but only if the user hasn't installed a newer version.
-if !exists('g:loaded_matchit') && findfile('plugin/matchit.vim', &rtp) ==# ''
-  runtime! macros/matchit.vim
+
+" CursorLineNr more visible
+if !has('nvim')
+  set cursorline
+  set cursorlineopt=number
 endif
+
+highlight LineNR cterm=none ctermfg=Yellow ctermbg=none
+highlight CursorLineNR cterm=bold ctermfg=Black ctermbg=none
 
 if empty(mapcheck('<C-U>', 'i'))
   inoremap <C-U> <C-G>u<C-U>
@@ -100,48 +93,29 @@ endif
 
 " Set backups
 if has('persistent_undo')
-  set undofile
-  set undolevels=3000
-  set undoreload=10000
+  set undofile undolevels=3000 undoreload=10000
 endif
 
-set nobackup
-set swapfile
-set nowritebackup
-
-set expandtab
-set tabstop=4
-set softtabstop=2
-set shiftwidth=4
-set shiftround
-set spellsuggest=7
-set linebreak
-set shortmess=atI
-set tw=80
-
-set ignorecase
-set smartcase
-autocmd BufRead,BufNewFile *.md setlocal spell " Enable spellcheck for markdown files
+silent! set nobackup nowritebackup
+silent! set spellsuggest=7 shortmess=atI
 
 " Folding
-set foldmethod=syntax
-set foldcolumn=1
-set foldlevel=99
-set cmdheight=2
-
-set keywordprg=:Man " Open man pages in vim
+silent! set foldmethod=syntax foldcolumn=1 foldlevel=99 cmdheight=2
+silent! set keywordprg=:Man " Open man pages in vim
 
 " Always show the signcolumn, otherwise it would shift the text each time
 " diagnostics appear/become resolved.
-if has("patch-8.1.1564")
-  " Recently vim can merge signcolumn and number column into one
-  set signcolumn=number
-else
-  set signcolumn=yes
+if !has('nvim')
+  if has("patch-8.1.1564")
+    " Recently vim can merge signcolumn and number column into one
+    set signcolumn=number
+  else
+    set signcolumn=yes
+  endif
 endif
 
 " Delete trailing white space on save, useful for some filetypes ;)
-fun! CleanExtraSpaces()
+function! CleanExtraSpaces() abort
   let save_cursor = getpos(".")
   let old_query = getreg('/')
   silent! %s/\s\+$//e
@@ -149,9 +123,15 @@ fun! CleanExtraSpaces()
   call setreg('/', old_query)
 endfun
 
+augroup indispensable
+	autocmd!
+augroup END
+
 if has("autocmd")
-    autocmd BufWritePre *.txt,*.md,*.html,*.css,*.scss,*.js,*.py,*.wiki,*.sh,*.zsh :call CleanExtraSpaces()
+    autocmd indispensable BufWritePre *.txt,*.md,*.html,*.css,*.scss,*.js,*.py,*.wiki,*.sh,*.zsh :call CleanExtraSpaces()
 endif
+
+autocmd indispensable BufRead,BufNewFile *.md setlocal spell " Enable spellcheck for markdown files
 
 " Add custom highlights in method that is executed every time a colorscheme is sourced
 " See https://gist.github.com/romainl/379904f91fa40533175dfaec4c833f2f for details
@@ -161,83 +141,26 @@ function! TrailingSpaceHighlights() abort
   call matchadd('Trail', '\s\+$', 100)
 endfunction
 
-autocmd! ColorScheme * call TrailingSpaceHighlights()
+autocmd indispensable ColorScheme * call TrailingSpaceHighlights()
 
 " Call method on window enter
-augroup WindowManagement
-  autocmd!
-  autocmd WinEnter * call Handle_Win_Enter()
-augroup end
+autocmd indispensable WinEnter * call Handle_Win_Enter()
 
 " Change highlight group of preview window when open
-function! Handle_Win_Enter()
+function! Handle_Win_Enter() abort
   if &previewwindow
     setlocal winhighlight=Normal:MarkdownError
   endif
 endfunction
 
-" add zsh to runtimepath if present
+" Add zsh to runtimepath if present
 if executable('zsh')
   set shell=/usr/bin/env\ zsh
 endif
 
-" Terminal more appealing
-if has('nvim')
-  au TermOpen * setlocal nonumber norelativenumber
-  " wind resizing
-  augroup term_settings | au!
-    au TermOpen * if &buftype ==# 'terminal' | resize 10 | startinsert | endif
-    au BufLeave term://* stopinsert
-    autocmd TermClose term://*
-      \ if (expand('<afile>') !~ "fzf") && (expand('<afile>') !~ "ranger") && (expand('<afile>') !~ "coc") |
-      \   call nvim_input('<CR>')  |
-      \ endif
-  augroup end
-endif
-
-" map T to open a terminal window on the botton of the screen since we have splitbelow on
-nmap <leader>T :sp +terminal<CR>
-
 " Open in VScode
 if executable('code')
   command! Code exe "silent !code '" . getcwd() . "' --goto '" . expand("%") . ":" . line(".") . ":" . col(".") . "'" | redraw!
-endif
 
-" Diff Original File
-command! DiffOrig vert new | set buftype=nofile | read ++edit # | 0d_
-        \ | diffthis | wincmd p | diffthis
-
-" ====== REDIR ======= "
-" TODO Make this a plugin by itself
-function! Redir(cmd, rng, start, end)
-  for win in range(1, winnr('$'))
-    if getwinvar(win, 'scratch')
-	  execute win . 'windo close'
-	endif
-  endfor
-  if a:cmd =~ '^!'
-    let cmd = a:cmd =~' %'
-      \ ? matchstr(substitute(a:cmd, ' %', ' ' . expand('%:p'), ''), '^!\zs.*')
-      \ : matchstr(a:cmd, '^!\zs.*')
-	  if a:rng == 0
-		let output = systemlist(cmd)
-	  else
-		let joined_lines = join(getline(a:start, a:end), '\n')
-		let cleaned_lines = substitute(shellescape(joined_lines), "'\\\\''", "\\\\'", 'g')
-		let output = systemlist(cmd . " <<< $" . cleaned_lines)
-	  endif
-    else
-	  redir => output
-	  execute a:cmd
-	  redir end
-	  let output = split(output, "\n")
-  endif
-  vnew
-  let w:scratch = 1
-  setlocal buftype=nofile bufhidden=wipe nobuflisted noswapfile
-  call setline(1, output)
-endfunction
-
-command! -nargs=1 -complete=command -bar -range Redir silent call Redir(<q-args>, <range>, <line1>, <line2>)
-
-" vim:set ft=vim et sw=2:
+" Redir and DiffOrig are independent plugins now
+" vim: set ts=8 sts=4 sw=4 noexpandtab ff=unix fdm=syntax :
