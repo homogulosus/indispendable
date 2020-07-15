@@ -5,7 +5,7 @@
 " Date: Tue Jul  7 15:30:00 EDT 2020
 " ===================================
 
-if exists('g:loaded_indispensable') || &compatible
+if &compatible || exists('g:loaded_indispensable')
   finish
 else
   let g:loaded_indispensable = 'yes'
