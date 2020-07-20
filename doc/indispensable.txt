@@ -43,4 +43,5 @@ There are not many commands at the moment
 
 THIS IS A TESt
 Another test
+and another
 vim:tw=78:et:ft=help:norl:
