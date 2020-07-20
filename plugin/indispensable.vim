@@ -161,6 +161,7 @@ endif
 " Open in VScode
 if executable('code')
   command! Code exe "silent !code '" . getcwd() . "' --goto '" . expand("%") . ":" . line(".") . ":" . col(".") . "'" | redraw!
+endif
 
 " Redir and DiffOrig are independent plugins now
 " vim: set ts=8 sts=4 sw=4 noexpandtab ff=unix fdm=syntax :
