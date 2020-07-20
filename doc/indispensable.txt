@@ -42,4 +42,5 @@ There are not many commands at the moment
                         it was loaded from. (see :help DiffOrig)
 
 THIS IS A TESt
+Another test
 vim:tw=78:et:ft=help:norl:
