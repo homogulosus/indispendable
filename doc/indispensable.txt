@@ -41,5 +41,5 @@ There are not many commands at the moment
                         between the current buffer and the file
                         it was loaded from. (see :help DiffOrig)
 
-
+THIS IS A TESt
 vim:tw=78:et:ft=help:norl:
