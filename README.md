@@ -1,4 +1,4 @@
-# Vim 2020 Indispensable
+# Nvim (Vim too) Indispensable
 
 ## Basically a copy of the lord tpope's vim-sensible
 
